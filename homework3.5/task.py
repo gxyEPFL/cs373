@@ -94,7 +94,7 @@ class robot:
     
     def sense(self): #do not change the name of this function
         Z = []
-
+        Z = [(atan2(land_y - self.y, land_x - self.x) % (2*pi) - self.orientation) for (land_y, land_x) in landmarks]
         # ENTER CODE HERE
         # HINT: You will probably need to use the function atan2()
 

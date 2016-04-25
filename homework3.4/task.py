@@ -95,9 +95,25 @@ class robot:
     #   move along a section of a circular path according to motion
     #
     
-    def move(self, motion): # Do not change the name of this function
-
-        # ENTER YOUR CODE HERE
+   def move(self, motion): # Do not change the name of this function
+        result = robot(self.length)
+        result.set_noise(self.bearing_noise, self.steering_noise, self.distance_noise)
+        
+        # basically a straight implementation of the equations for bicycle-based movement
+        alpha = motion[0]
+        d = motion[1]
+        beta = d * tan(alpha) / self.length
+        if abs(beta) < 0.001:
+            # no movement
+            result.x = self.x + d * cos(self.orientation)
+            result.y = self.y + d * sin(self.orientation)
+        else:
+            R = d / beta
+            cx = self.x - sin(self.orientation) * R
+            cy = self.y + cos(self.orientation) * R
+            result.x = cx + sin(self.orientation + beta) * R
+            result.y = cy - cos(self.orientation + beta) * R
+        result.orientation = (self.orientation + beta) % (2*pi)
         
         return result # make sure your move function returns an instance
                       # of the robot class with the correct coordinates.

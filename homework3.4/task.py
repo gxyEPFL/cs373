@@ -96,7 +96,8 @@ class robot:
     #
     
    def move(self, motion): # Do not change the name of this function
-        result = robot(self.length)
+        #result = robot(self.length) # important here
+        result = robot(self.length) #initializaiton
         result.set_noise(self.bearing_noise, self.steering_noise, self.distance_noise)
         
         # basically a straight implementation of the equations for bicycle-based movement
